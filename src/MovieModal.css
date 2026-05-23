@@ -1,0 +1,377 @@
+/* ── Backdrop ────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(7px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+  animation: backdropIn 0.2s ease;
+}
+@keyframes backdropIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Modal card ──────────────────────────────────── */
+.modal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 880px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.92) translateY(18px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);     }
+}
+.modal::-webkit-scrollbar       { width: 5px; }
+.modal::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ── Close button ────────────────────────────────── */
+/* Sticky header so close button stays visible while scrolling */
+.modal-close-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.85rem 0.85rem 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--bg-secondary) 55%, transparent 100%);
+}
+
+.modal-close {
+  pointer-events: auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.modal-close:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* ── Loading ─────────────────────────────────────── */
+.modal-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  gap: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ── Inner grid ──────────────────────────────────── */
+.modal-inner {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 0;
+}
+
+/* ── Left column ─────────────────────────────────── */
+.modal-left {
+  padding: 1.5rem 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.modal-poster-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+}
+.modal-poster-wrap img { width: 100%; display: block; object-fit: cover; }
+
+/* Action buttons */
+.modal-poster-actions { display: flex; flex-direction: column; gap: 0.45rem; }
+
+.mposter-btn {
+  width: 100%;
+  padding: 0.52rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+.mposter-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.btn-trailer {
+  background: rgba(233, 69, 96, 0.14);
+  border-color: rgba(233, 69, 96, 0.4);
+  color: #f87171;
+  font-weight: 700;
+}
+.btn-trailer:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.mposter-btn.btn-active-red   { background: rgba(233,69,96,0.16); border-color: rgba(233,69,96,0.5); color: #f87171; }
+.mposter-btn.btn-active-green { background: rgba(74,222,128,0.13); border-color: rgba(74,222,128,0.45); color: #4ade80; }
+.mposter-btn.btn-share:hover  { background: rgba(245,166,35,0.12); border-color: rgba(245,166,35,0.4); color: var(--gold); }
+
+/* IMDb link */
+.imdb-link {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  transition: color 0.2s;
+}
+.imdb-link:hover { color: var(--gold); }
+
+/* ── Right column ────────────────────────────────── */
+.modal-right {
+  padding: 1.75rem 1.75rem 1.75rem 0.75rem;
+  overflow: hidden;
+}
+
+/* Chips row */
+.modal-meta-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.8rem; }
+
+.meta-chip {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+.meta-chip.type-chip {
+  color: var(--gold);
+  border-color: rgba(245, 166, 35, 0.3);
+  background: rgba(245, 166, 35, 0.08);
+}
+
+.modal-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-display, serif);
+}
+
+.modal-genres { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+.genre-tag {
+  background: rgba(233, 69, 96, 0.1);
+  border: 1px solid rgba(233, 69, 96, 0.28);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* External ratings */
+.modal-ratings { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.1rem; }
+
+.rating-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.45rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 62px;
+}
+.rating-src   { font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+.rating-val   { font-size: 0.95rem; font-weight: 800; color: var(--text-primary); }
+.rating-votes { font-size: 0.6rem; color: var(--text-muted); }
+
+/* Plot */
+.modal-plot {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.72;
+  margin-bottom: 1.25rem;
+}
+
+/* Facts table */
+.modal-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.45rem 1rem;
+  font-size: 0.84rem;
+  margin-bottom: 1.5rem;
+}
+.modal-facts dt {
+  color: var(--text-muted);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  padding-top: 2px;
+  white-space: nowrap;
+}
+.modal-facts dd { color: var(--text-secondary); line-height: 1.5; }
+
+/* Clickable name buttons */
+.name-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-decoration-color: rgba(233, 69, 96, 0.35);
+  text-underline-offset: 2px;
+  transition: color 0.18s;
+}
+.name-btn:hover { color: #fff; text-decoration-color: var(--accent); }
+
+/* ── Similar movies ──────────────────────────────── */
+.similar-section {
+  border-top: 1px solid var(--border);
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.similar-heading {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
+}
+
+.similar-scroll {
+  display: flex;
+  gap: 0.85rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.similar-scroll::-webkit-scrollbar { display: none; }
+
+.similar-card {
+  flex-shrink: 0;
+  width: 96px;
+  min-width: 96px;
+  max-width: 96px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.22s ease;
+}
+.similar-card:hover { transform: translateY(-4px); }
+
+.similar-card img {
+  width: 96px;
+  height: 144px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  border: 1px solid var(--border);
+}
+.similar-title {
+  display: block;
+  width: 96px;
+  max-width: 96px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 0.35rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.similar-year {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+/* ── Light theme overrides ───────────────────────── */
+[data-theme="light"] .modal { background: #ffffff; }
+[data-theme="light"] .modal-close-bar { background: linear-gradient(to bottom, #fff 55%, transparent); }
+[data-theme="light"] .modal-close { background: rgba(0,0,0,0.06); }
+[data-theme="light"] .modal-close:hover { background: var(--accent); color: #fff; }
+
+[data-theme="light"] .meta-chip { background: rgba(0,0,0,0.06); color: var(--text-secondary); }
+[data-theme="light"] .meta-chip.type-chip { background: rgba(245,166,35,0.1); }
+
+[data-theme="light"] .rating-pill { background: rgba(0,0,0,0.04); }
+[data-theme="light"] .rating-src  { color: var(--text-muted); }
+
+[data-theme="light"] .mposter-btn { background: rgba(0,0,0,0.04); color: var(--text-secondary); }
+[data-theme="light"] .mposter-btn:hover { background: rgba(0,0,0,0.09); color: var(--text-primary); border-color: rgba(0,0,0,0.2); }
+[data-theme="light"] .btn-trailer { background: rgba(233,69,96,0.08); }
+
+[data-theme="light"] .similar-section { border-color: rgba(0,0,0,0.1); }
+[data-theme="light"] .similar-card img { border-color: rgba(0,0,0,0.1); }
+[data-theme="light"] .similar-title { color: var(--text-secondary); }
+
+[data-theme="light"] .modal-facts dt { color: var(--text-muted); }
+[data-theme="light"] .modal-facts dd { color: var(--text-secondary); }
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 640px) {
+  .modal-backdrop { padding: 0; align-items: flex-end; }
+  .modal { max-height: 92vh; border-radius: 20px 20px 0 0; max-width: 100%; }
+
+  .modal-inner { grid-template-columns: 1fr; }
+
+  .modal-left {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 0.85rem;
+  }
+  .modal-poster-wrap { width: 100px; flex-shrink: 0; }
+  .modal-poster-actions { flex: 1; min-width: 0; }
+  .imdb-link { text-align: left; }
+
+  /* Prevent "Watch Trailer" wrapping on narrow screens */
+  .btn-trailer { white-space: nowrap; font-size: 0.75rem; padding: 0.45rem 0.6rem; }
+  .mposter-btn { font-size: 0.75rem; padding: 0.45rem 0.6rem; }
+
+  .modal-right { padding: 0 1rem 1.5rem; }
+  .modal-title { font-size: 1.25rem; }
+  .modal-close-bar { padding: 0.6rem 0.6rem 0; }
+
+  .similar-section { padding: 1rem; }
+  .similar-card { width: 80px; min-width: 80px; max-width: 80px; }
+  .similar-card img { width: 80px; height: 120px; }
+  .similar-title { width: 80px; max-width: 80px; }
+}
